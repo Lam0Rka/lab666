@@ -1,0 +1,9 @@
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/install/strip.dir
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/install/local.dir
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/edit_cache.dir
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/package_source.dir
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/install.dir
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/list_install_components.dir
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/rebuild_cache.dir
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/package.dir
+/home/bogdan/Lam0Rka/workspace/projects/lab666/_build/CMakeFiles/print.dir
