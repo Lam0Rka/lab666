@@ -55,9 +55,13 @@ set(PRINT_VERSION_MINOR 1)
 $ gsed -i '/project(print)/a\
 set(PRINT_VERSION_MAJOR 0)
 ' CMakeLists.txt
+
+#Смотрим на изменения в файлах
+
 $ git diff
 ```
-
+Создаём файл ДИСКРИПШН и открываем его для редактирование, дальше создаём чейндж лог - туда будут записывать изменения
+Затем задаём переменную Date и записываем в файл со списком изменений
 ```sh
 $ touch DESCRIPTION && edit DESCRIPTION
 $ touch ChangeLog.md
@@ -67,13 +71,13 @@ $ cat > ChangeLog.md <<EOF
 - Initial RPM release
 EOF
 ```
-
+Подключаем библиотеку
 ```sh
 $ cat > CPackConfig.cmake <<EOF
 include(InstallRequiredSystemLibraries)
 EOF
 ```
-
+Устанавливаем значение переменных в пакете
 ```sh
 $ cat >> CPackConfig.cmake <<EOF
 set(CPACK_PACKAGE_CONTACT ${GITHUB_EMAIL})
@@ -86,7 +90,7 @@ set(CPACK_PACKAGE_DESCRIPTION_FILE \${CMAKE_CURRENT_SOURCE_DIR}/DESCRIPTION)
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "static C++ library for printing")
 EOF
 ```
-
+Добавляем файлы в пакет
 ```sh
 $ cat >> CPackConfig.cmake <<EOF
 
@@ -94,7 +98,7 @@ set(CPACK_RESOURCE_FILE_LICENSE \${CMAKE_CURRENT_SOURCE_DIR}/LICENSE)
 set(CPACK_RESOURCE_FILE_README \${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 EOF
 ```
-
+Настраиваем RPM пакета
 ```sh
 $ cat >> CPackConfig.cmake <<EOF
 
@@ -105,7 +109,7 @@ set(CPACK_RPM_CHANGELOG_FILE \${CMAKE_CURRENT_SOURCE_DIR}/ChangeLog.md)
 set(CPACK_RPM_PACKAGE_RELEASE 1)
 EOF
 ```
-
+Настраиваем Дебиан пакет
 ```sh
 $ cat >> CPackConfig.cmake <<EOF
 
@@ -114,37 +118,37 @@ set(CPACK_DEBIAN_PACKAGE_PREDEPENDS "cmake >= 3.0")
 set(CPACK_DEBIAN_PACKAGE_RELEASE 1)
 EOF
 ```
-
+Подключаем си пак
 ```sh
 $ cat >> CPackConfig.cmake <<EOF
 
 include(CPack)
 EOF
 ```
-
+подключаем сипак конфиг
 ```sh
 $ cat >> CMakeLists.txt <<EOF
 
 include(CPackConfig.cmake)
 EOF
 ```
-
+заменяем лаб05 на лаб06
 ```sh
 $ gsed -i 's/lab05/lab06/g' README.md
 ```
-
+добавляем коммити
 ```sh
 $ git add .
 $ git commit -m"added cpack config"
 $ git tag v0.1.0.0
-$ git push origin master --tags
+$ git push origin main --tags
 ```
-
+заходим в трэвис
 ```sh
 $ travis login --auto
 $ travis enable
 ```
-
+сборка и генерация пакета через си пак
 ```sh
 $ cmake -H. -B_build
 $ cmake --build _build
@@ -152,12 +156,13 @@ $ cd _build
 $ cpack -G "TGZ"
 $ cd ..
 ```
-
+сборка и генерация пакета через си мэйк
 ```sh
 $ cmake -H. -B_build -DCPACK_GENERATOR="TGZ"
 $ cmake --build _build --target package
 ```
-
+создаём директорию артифактся
+и демонстрируем дерева директории
 ```sh
 $ mkdir artifacts
 $ mv _build/*.tar.gz artifacts
