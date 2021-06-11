@@ -14,27 +14,27 @@ $ open https://cmake.org/Wiki/CMake:CPackPackageGenerators
 - [ ] 4. Составить отчет и отправить ссылку личным сообщением в **Slack**
 
 ## Tutorial
-
+Классика
 ```sh
 $ export GITHUB_USERNAME=<имя_пользователя>
 $ export GITHUB_EMAIL=<адрес_почтового_ящика>
 $ alias edit=<nano|vi|vim|subl>
 $ alias gsed=sed # for *-nix system
 ```
-
+И тут
 ```sh
 $ cd ${GITHUB_USERNAME}/workspace
 $ pushd .
 $ source scripts/activate
 ```
-
+И тут
 ```sh
 $ git clone https://github.com/${GITHUB_USERNAME}/lab05 projects/lab06
 $ cd projects/lab06
 $ git remote remove origin
 $ git remote add origin https://github.com/${GITHUB_USERNAME}/lab06
 ```
-
+А вот тут мы настраиваем Сpack через определения CPack-переменных внутри симэйка
 ```sh
 $ gsed -i '/project(print)/a\
 set(PRINT_VERSION_STRING "v\${PRINT_VERSION}")
