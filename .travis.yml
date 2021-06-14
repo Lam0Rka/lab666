@@ -1,10 +1,24 @@
 language: cpp
 
+compiler:
+- gcc
+- clang
+os:
+ - linux
+
+jobs:
+  include:
+  - name: "all projects"
+    script:
+    - cmake -H. -B_build
+    - cmake --build _build
+  - name: "each CMakeLists.txt"
+
 script:
-- cmake -H. -B_build -DCMAKE_INSTALL_PREFIX=_install -DBUILD_TESTS=ON
-- cmake --build _build
-- cmake --build _build --target install
-- cmake --build _build --target test -- ARGS=--verbose
+- source ./script
+- cd /home/travis/build/Lam0Rka/lab666/solver_application/_build
+- cpack -G DEB
+    
 
 addons:
   apt:
@@ -13,3 +27,12 @@ addons:
     packages:
       - cmake
       - cmake-data
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "cwfVkm2rrBbWB2km1dIXMNJDXYMU+w5frVgLexvdI9TQVSDf9uMeerVGIahpXeybRAI+jZ4s87ZlShI41A5utEG4/0ouoYPTWsA+g3404mixnF6YJ9prweal/1crPgHaxVN9qZxeMOp/RZcSE3FI0y0gu7xPC5jkvb01guwlsITuAYQ141Sk4VJ2t1CkvwlsDBJiczi/oZYAE1QaOLRVfrEKeej8x9KBzv/yImn20P8DWXXYE1yhs5XQH9H1ks/rc+072gdYlXdxuGKmdhpdDxoA+PwsORvYsGqbUujXR8yQw/gg8Eg5GE22vOv14xin0vD0eJxW8tCKj1TU5hq6tNA0qi81lfmDvddDNDgDCQZpLDtto82XkOOnu2KY+zbaN9qxzeXZGC5oq+bCmr8NSvteFhUjqodrelU7MH2bHNOKvW33pV0f3Fsy7zAY1J/HP5G3CxIUGMM6B91vSJs9+bm0LYkK9RDG1CwviW1vefcux7DpQXWQZCZZ2W6O9cD3TjcGpZrkyA2gdqVPjLUWlU/54ecUQ8UHDeH9NCZOYEjEFh7Vg2GJu9fGCKBC4kgbGGZO2ua07hCtdnO1iMrV5hw+uOSRTMj0xMR1HLGBhPhV1BYM9bS0evCmAeBypyFWymL1ZdlfS4g9aWXNzeexzaEhB8TsM/r3G1iX7WveT2M="
+  file: "/home/travis/build/Lam0Rka/lab666/solver_application/_build/solver-0.1.0.0-Linux.deb"
+  skip_cleanup: true
+  on:
+    branch: homework
